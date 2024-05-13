@@ -10,21 +10,6 @@
             height: 200px;
             width: 200px;
         }
-        .box1 {
-            background-color: brown;
-            height: 200px;
-            width: 200px;
-        }
-        .box2 {
-            background-color: black;
-            height: 200px;
-            width: 200px;
-        }
-        .box3 {
-            background-color: aqua;
-            height: 200px;
-            width: 200px;
-        }
         [v-cloak] {
             display: none;
         }
@@ -33,12 +18,10 @@
 <body>
     <div id = "html" v-cloak>
         {{ greeting }}
-        <input v-model="greeting"/>
+        <input @keyup.enter="greet(greeting + '!!!!!')" v-model="greeting"/>
         <hr />
+        <button @click.prevent.stop="toggleBox">Show</button>
         <div v-show="isVisible" class="box"></div>
-        <div v-if="isVisible1" class="box1"></div>
-        <div v-else-if="isVisible2" class="box2"></div>
-        <div v-else class="box3"></div>
     </div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -47,11 +30,17 @@
             data : function(){
                 return {
                     greeting: "Hello Vue JS !!",
-                    isVisible : false,
-                    isVisible1 : false,
-                    isVisible2 : false
+                    isVisible : false
                 }
-            }
+            },
+            methods: {
+                toggleBox(){
+                    this.isVisible = !this.isVisible
+                },
+                greet(greeting){
+                    console.log(greeting)
+                }
+            },
         })
         app.mount('#html')
     </script>
